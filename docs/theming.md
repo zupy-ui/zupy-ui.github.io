@@ -1,0 +1,85 @@
+# Theming (https://zupy-ui.github.io/docs/theming.md)
+
+## Built-in themes [#built-in-themes]
+
+Set `data-theme` on any element. Everything inside it follows.
+
+```html
+<html data-theme="arcade">
+```
+
+| Theme    | Look                                          |
+| -------- | --------------------------------------------- |
+| `pop`    | Default. Cream paper, ink outlines.           |
+| `arcade` | Navy outlines, bright blue and yellow.        |
+| `gloss`  | No outlines, glossy gradient fills.           |
+
+Themes can be nested, so a single section can use a different theme from the rest of the page.
+
+## Dark mode [#dark-mode]
+
+Add the `dark` class to the same element or any ancestor:
+
+```html
+<html data-theme="pop" class="dark">
+```
+
+## Tokens [#tokens]
+
+Every theme is a set of CSS variables. Override any of them in your own CSS.
+
+### Colors [#colors]
+
+| Token                     | Used for                                   |
+| ------------------------- | ------------------------------------------ |
+| `--zupy-background`       | Page background                            |
+| `--zupy-foreground`       | Main text                                  |
+| `--zupy-muted`            | Secondary text                             |
+| `--zupy-surface`          | Tinted areas, tracks, hovers               |
+| `--zupy-card`             | Cards, inputs, secondary buttons           |
+| `--zupy-border`           | Soft borders                               |
+| `--zupy-edge`             | Outlines and hard shadows on raised things |
+| `--zupy-primary`          | Main actions, selected states, icons       |
+| `--zupy-accent`           | A second highlight color                   |
+| `--zupy-success` / `warning` / `danger` | Status colors                |
+
+Each fill color has a matching `-foreground` token for text on top of it.
+
+### Shape and depth [#shape-and-depth]
+
+| Token                | Default | What it does                                  |
+| -------------------- | ------- | --------------------------------------------- |
+| `--zupy-edge-width`  | `2px`   | Outline width. `0px` removes outlines.        |
+| `--zupy-lift`        | `4px`   | Height of the hard shadow                     |
+| `--zupy-press`       | `3px`   | How far things sink when pressed              |
+| `--zupy-gloss`       | `0`     | `1` turns fills into glossy gradients         |
+| `--zupy-radius-sm` … `-xl` |   | Corner radii                                  |
+
+### Example: a softer theme [#example-a-softer-theme]
+
+```css
+[data-theme="soft"] {
+  --zupy-edge-width: 0px;
+  --zupy-lift: 3px;
+  --zupy-edge: rgb(0 0 0 / 0.15);
+  --zupy-primary: #7c5cff;
+  --zupy-accent: #ffb3d1;
+}
+```
+
+## Tactile utilities [#tactile-utilities]
+
+zupy adds three Tailwind utilities you can use on your own elements:
+
+| Utility     | Effect                                                     |
+| ----------- | ---------------------------------------------------------- |
+| `raised`    | Outline in the edge color plus a hard drop shadow          |
+| `filled`    | Fills with `--zupy-fill`, glossy when the theme is glossy  |
+| `pressable` | Sinks into its shadow while pressed                        |
+| `depth-sm`  | Smaller lift, for compact controls                         |
+
+```tsx
+<div className="raised filled pressable rounded-lg p-4 [--zupy-fill:var(--zupy-accent)]">
+  Press me
+</div>
+```

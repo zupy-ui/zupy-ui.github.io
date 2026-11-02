@@ -1,0 +1,916 @@
+# Using with AI (https://zupy-ui.github.io/docs/ai.md)
+
+The docs are written so coding agents can read them as easily as people can.
+
+## llms.txt [#llmstxt]
+
+| URL               | Contents                                    |
+| ----------------- | ------------------------------------------- |
+| [`/llms.txt`](/llms.txt)           | An index of every page with a short summary |
+| [`/llms-full.txt`](/llms-full.txt) | Every page in full, in one file             |
+
+Paste either link into your agent, or add it to your project's rules file.
+
+## Markdown pages [#markdown-pages]
+
+Add `.md` to any docs URL to get the page as plain Markdown, for example [`/docs/components/button.md`](/docs/components/button.md). Requests that send `Accept: text/markdown` get the Markdown version automatically.
+
+Every page also has a **Copy Markdown** button at the top.
+
+## Rules for your agent [#rules-for-your-agent]
+
+Add something like this to your `AGENTS.md` or `CLAUDE.md`:
+
+```md
+## UI
+
+- Use components from `@zupy/ui`. Docs: https://zupy-ui.github.io/llms.txt
+- Style with zupy tokens (`bg-primary`, `text-muted`, `rounded-lg`), not raw colors.
+- For custom raised surfaces use the `raised`, `filled` and `pressable` utilities
+  instead of writing box shadows by hand.
+- Pass `render` to change the element, e.g. `<Button render={<a href="/" />}>`.
+```
+
+## Typed and documented [#typed-and-documented]
+
+Every component and prop has a JSDoc comment with an example, so agents get the same guidance in the editor as on this site.
+
+
+# Avatar (https://zupy-ui.github.io/docs/components/avatar.md)
+
+<Preview>
+  <Avatar name="Maya Lin" size="sm" />
+  <Avatar name="Sam Ortiz" />
+  <Avatar name="Fox" fallback="🦊" size="lg" />
+  <Avatar name="Robin Park" size="xl" shape="square" />
+</Preview>
+
+```tsx
+import { Avatar } from "@zupy/ui";
+
+<Avatar name="Maya Lin" src="/maya.png" />
+<Avatar name="Fox" fallback="🦊" />
+```
+
+The image is shown once it loads. Until then, or if it fails, the fallback is shown: the initials of `name`, or whatever you pass as `fallback`.
+
+## Props [#props]
+
+| Prop       | Type                                  | Default        |
+| ---------- | ------------------------------------- | -------------- |
+| `name`     | `string`                              | required       |
+| `src`      | `string`                              |                |
+| `fallback` | `ReactNode`                           | initials       |
+| `size`     | `"sm" \| "md" \| "lg" \| "xl"`        | `"md"`         |
+| `shape`    | `"circle" \| "square"`                | `"circle"`     |
+
+
+# Badge (https://zupy-ui.github.io/docs/components/badge.md)
+
+<Preview>
+  <Badge>Neutral</Badge>
+  <Badge variant="primary">Primary</Badge>
+  <Badge variant="accent">New</Badge>
+  <Badge variant="success">Online</Badge>
+  <Badge variant="warning">Pending</Badge>
+  <Badge variant="danger">3 errors</Badge>
+</Preview>
+
+```tsx
+import { Badge } from "@zupy/ui";
+
+<Badge variant="accent">New</Badge>
+```
+
+## Props [#props]
+
+| Prop      | Type                                                                          | Default     |
+| --------- | ----------------------------------------------------------------------------- | ----------- |
+| `variant` | `"neutral" \| "primary" \| "accent" \| "success" \| "warning" \| "danger"`    | `"neutral"` |
+| `render`  | `ReactElement`                                                                |             |
+
+
+# Button (https://zupy-ui.github.io/docs/components/button.md)
+
+<Preview>
+  <Button>Primary</Button>
+  <Button variant="accent">Accent</Button>
+  <Button variant="secondary">Secondary</Button>
+  <Button variant="danger">Danger</Button>
+  <Button variant="ghost">Ghost</Button>
+</Preview>
+
+```tsx
+import { Button } from "@zupy/ui";
+
+<Button>Play now</Button>;
+```
+
+## Sizes [#sizes]
+
+<Preview>
+  <Button size="sm">Small</Button>
+  <Button size="md">Medium</Button>
+  <Button size="lg">Large</Button>
+</Preview>
+
+```tsx
+<Button size="sm">Small</Button>
+<Button size="md">Medium</Button>
+<Button size="lg">Large</Button>
+```
+
+## As a link [#as-a-link]
+
+Use `render` to keep the button styles on another element, such as a router link.
+
+```tsx
+<Button render={<a href="/docs" />}>Read the docs</Button>
+```
+
+## Props [#props]
+
+| Prop        | Type                                                           | Default     |
+| ----------- | -------------------------------------------------------------- | ----------- |
+| `variant`   | `"primary" \| "accent" \| "secondary" \| "danger" \| "ghost"` | `"primary"` |
+| `size`      | `"sm" \| "md" \| "lg"`                                         | `"md"`      |
+| `render`    | `ReactElement`                                                 |             |
+| `disabled`  | `boolean`                                                      | `false`     |
+| `className` | `string`                                                       |             |
+
+All other props are passed to the underlying [Base UI Button](https://base-ui.com/react/components/button).
+
+
+# Card (https://zupy-ui.github.io/docs/components/card.md)
+
+<Preview>
+  <ZupyCard className="w-64">
+    <Heading level={3}>Weekly goal</Heading>
+    <Text tone="muted" className="mt-1">Three of five days done.</Text>
+  </ZupyCard>
+  <ZupyCard variant="flat" className="w-64">
+    <Heading level={3}>Flat</Heading>
+    <Text tone="muted" className="mt-1">For content inside a raised card.</Text>
+  </ZupyCard>
+  <ZupyCard variant="sunken" className="w-64">
+    <Heading level={3}>Sunken</Heading>
+    <Text tone="muted" className="mt-1">A tinted area with no border.</Text>
+  </ZupyCard>
+</Preview>
+
+```tsx
+import { Card, Heading, Text } from "@zupy/ui";
+
+<Card>
+  <Heading level={3}>Weekly goal</Heading>
+  <Text tone="muted">Three of five days done.</Text>
+</Card>
+```
+
+## Props [#props]
+
+| Prop      | Type                                   | Default    |
+| --------- | -------------------------------------- | ---------- |
+| `variant` | `"raised" \| "flat" \| "sunken"`       | `"raised"` |
+| `padding` | `"none" \| "sm" \| "md" \| "lg"`       | `"md"`     |
+| `render`  | `ReactElement`                         |            |
+
+
+# Checkbox (https://zupy-ui.github.io/docs/components/checkbox.md)
+
+<Preview>
+  <div className="flex flex-col gap-3">
+    <label className="flex items-center gap-2.5">
+      <Checkbox defaultChecked />
+      Email updates
+    </label>
+    <label className="flex items-center gap-2.5">
+      <Checkbox />
+      Weekly digest
+    </label>
+    <label className="flex items-center gap-2.5">
+      <Checkbox indeterminate />
+      Some selected
+    </label>
+    <label className="flex items-center gap-2.5 text-muted">
+      <Checkbox disabled />
+      Disabled
+    </label>
+  </div>
+</Preview>
+
+```tsx
+import { Checkbox } from "@zupy/ui";
+
+<label className="flex items-center gap-2.5">
+  <Checkbox defaultChecked />
+  Email updates
+</label>
+```
+
+Wrap the checkbox and its text in a `<label>` so clicking the text toggles it.
+
+## Props [#props]
+
+| Prop              | Type                         | Default |
+| ----------------- | ---------------------------- | ------- |
+| `checked`         | `boolean`                    |         |
+| `defaultChecked`  | `boolean`                    | `false` |
+| `onCheckedChange` | `(checked: boolean) => void` |         |
+| `indeterminate`   | `boolean`                    | `false` |
+| `disabled`        | `boolean`                    | `false` |
+| `name`            | `string`                     |         |
+
+Built on [Base UI Checkbox](https://base-ui.com/react/components/checkbox).
+
+
+# Field (https://zupy-ui.github.io/docs/components/field.md)
+
+<Preview>
+  <Form className="w-72">
+    <Field name="name">
+      <FieldLabel>Display name</FieldLabel>
+      <Input required placeholder="Maya" />
+      <FieldDescription>Shown on your profile.</FieldDescription>
+      <FieldError match="valueMissing">Pick a name first.</FieldError>
+    </Field>
+    <Button type="submit">Save</Button>
+  </Form>
+</Preview>
+
+```tsx
+import {
+  Button,
+  Field,
+  FieldDescription,
+  FieldError,
+  FieldLabel,
+  Form,
+  Input,
+} from "@zupy/ui";
+
+<Form onFormSubmit={(values) => save(values)}>
+  <Field name="name">
+    <FieldLabel>Display name</FieldLabel>
+    <Input required />
+    <FieldDescription>Shown on your profile.</FieldDescription>
+    <FieldError match="valueMissing">Pick a name first.</FieldError>
+  </Field>
+  <Button type="submit">Save</Button>
+</Form>
+```
+
+Submit the form above with an empty name to see the error. `FieldError` only shows when the control is invalid, and shakes when it appears. Wrap fields in zupy's `Form` so errors appear inline instead of as browser bubbles.
+
+## Form [#form]
+
+| Prop             | Type                                         | Default      |
+| ---------------- | -------------------------------------------- | ------------ |
+| `onFormSubmit`   | `(values: Record<string, unknown>) => void`  |              |
+| `validationMode` | `"onSubmit" \| "onBlur" \| "onChange"`       | `"onSubmit"` |
+| `errors`         | `Record<string, string \| string[]>`         |              |
+
+Built on [Base UI Form](https://base-ui.com/react/components/form).
+
+## Parts [#parts]
+
+| Component          | Renders            | Notes                                              |
+| ------------------ | ------------------ | -------------------------------------------------- |
+| `Field`            | `div`              | Wraps everything; accepts `name`, `disabled`, `invalid`, `validate` |
+| `FieldLabel`       | `label`            | Linked to the control automatically                |
+| `FieldDescription` | `p`                | Read by screen readers with the control            |
+| `FieldError`       | `div`              | Pass `match` (e.g. `"valueMissing"`) to target one error |
+
+Built on [Base UI Field](https://base-ui.com/react/components/field).
+
+
+# Icon Button (https://zupy-ui.github.io/docs/components/icon-button.md)
+
+<Preview>
+  <IconButton aria-label="Home">
+    <HomeIcon />
+  </IconButton>
+  <IconButton aria-label="Like" variant="accent">
+    <HeartIcon tone="danger" />
+  </IconButton>
+  <IconButton aria-label="Search" variant="secondary">
+    <SearchIcon />
+  </IconButton>
+  <IconButton aria-label="Notifications" variant="ghost">
+    <BellIcon />
+  </IconButton>
+</Preview>
+
+```tsx
+import { SearchIcon } from "@zupy/icons";
+import { IconButton } from "@zupy/ui";
+
+<IconButton aria-label="Search" variant="secondary">
+  <SearchIcon />
+</IconButton>
+```
+
+Any SVG icon works, including [zupy icons](/docs/icons) and Lucide.
+
+`aria-label` is required, because an icon alone gives screen readers nothing to read. All other props match [Button](/docs/components/button).
+
+
+# Input (https://zupy-ui.github.io/docs/components/input.md)
+
+<Preview>
+  <div className="flex w-72 flex-col gap-3">
+    <Input placeholder="Your name" />
+    <Textarea placeholder="Say something nice" />
+  </div>
+</Preview>
+
+```tsx
+import { Input, Textarea } from "@zupy/ui";
+
+<Input placeholder="Your name" />
+<Textarea placeholder="Say something nice" />
+```
+
+Put an input inside a [Field](/docs/components/field) to give it a label, a description and validation messages.
+
+## Sizes [#sizes]
+
+<Preview>
+  <div className="flex w-72 flex-col gap-3">
+    <Input size="sm" placeholder="Small" />
+    <Input size="md" placeholder="Medium" />
+    <Input size="lg" placeholder="Large" />
+  </div>
+</Preview>
+
+## Props [#props]
+
+| Prop       | Type                   | Default |
+| ---------- | ---------------------- | ------- |
+| `size`     | `"sm" \| "md" \| "lg"` | `"md"`  |
+| `rows`     | `number` (Textarea)    | `4`     |
+
+All other props are passed to the native element through [Base UI Input](https://base-ui.com/react/components/input).
+
+
+# Kbd (https://zupy-ui.github.io/docs/components/kbd.md)
+
+<Preview>
+  <Text>
+    Press <Kbd>⌘</Kbd> <Kbd>K</Kbd> to search
+  </Text>
+</Preview>
+
+```tsx
+import { Kbd } from "@zupy/ui";
+
+Press <Kbd>⌘</Kbd> <Kbd>K</Kbd> to search
+```
+
+Renders a `<kbd>` element. Accepts `render` and all native attributes.
+
+
+# Pin Input (https://zupy-ui.github.io/docs/components/pin-input.md)
+
+<Preview>
+  <PinInput length={6} groupSize={3} aria-label="Verification code" />
+</Preview>
+
+```tsx
+import { PinInput } from "@zupy/ui";
+
+<PinInput
+  length={6}
+  groupSize={3}
+  aria-label="Verification code"
+  onValueComplete={(code) => verify(code)}
+/>
+```
+
+## Behavior [#behavior]
+
+- Typing a character moves to the next slot; Backspace clears and moves back.
+- Arrow keys, Home and End move between slots.
+- Pasting a code, or picking one from the phone's SMS suggestion, fills every slot at once.
+- When every slot is filled, the slots turn primary and `onValueComplete` fires.
+- Characters that don't match `validationType` are rejected.
+
+## PIN [#pin]
+
+Use `mask` to hide the characters, and a shorter `length`.
+
+<Preview>
+  <PinInput length={4} mask aria-label="PIN" />
+</Preview>
+
+```tsx
+<PinInput length={4} mask aria-label="PIN" />
+```
+
+## Letters and numbers [#letters-and-numbers]
+
+<Preview>
+  <PinInput length={5} validationType="alphanumeric" placeholder="•" aria-label="Invite code" />
+</Preview>
+
+```tsx
+<PinInput length={5} validationType="alphanumeric" placeholder="•" />
+```
+
+## Sizes [#sizes]
+
+<Preview>
+  <div className="flex flex-col items-center gap-4">
+    <PinInput length={4} size="sm" aria-label="Small" />
+    <PinInput length={4} size="md" aria-label="Medium" />
+    <PinInput length={4} size="lg" aria-label="Large" />
+  </div>
+</Preview>
+
+## In a form [#in-a-form]
+
+Inside a [Field](/docs/components/field), the label and errors are wired up automatically, and `name` submits the code with the form.
+
+```tsx
+<Form onFormSubmit={(values) => verify(values.code)}>
+  <Field name="code">
+    <FieldLabel>Verification code</FieldLabel>
+    <PinInput length={6} required />
+    <FieldError match="valueMissing">Enter the code we sent you.</FieldError>
+  </Field>
+  <Button type="submit">Verify</Button>
+</Form>
+```
+
+## Props [#props]
+
+| Prop              | Type                                                    | Default     |
+| ----------------- | ------------------------------------------------------- | ----------- |
+| `length`          | `number`                                                | `6`         |
+| `groupSize`       | `number`                                                |             |
+| `size`            | `"sm" \| "md" \| "lg"`                                  | `"md"`      |
+| `value`           | `string`                                                |             |
+| `defaultValue`    | `string`                                                |             |
+| `onValueChange`   | `(value: string) => void`                               |             |
+| `onValueComplete` | `(value: string) => void`                               |             |
+| `validationType`  | `"numeric" \| "alpha" \| "alphanumeric" \| "none"`      | `"numeric"` |
+| `mask`            | `boolean`                                               | `false`     |
+| `placeholder`     | `string`                                                |             |
+| `autoSubmit`      | `boolean` (submits the form when complete)              | `false`     |
+| `disabled`        | `boolean`                                               | `false`     |
+| `name`            | `string`                                                |             |
+
+Built on [Base UI OTP Field](https://base-ui.com/react/components/otp-field).
+
+
+# Radio (https://zupy-ui.github.io/docs/components/radio.md)
+
+<Preview>
+  <RadioGroup defaultValue="monthly" aria-label="Billing">
+    <label className="flex items-center gap-2.5">
+      <Radio value="monthly" />
+      Monthly
+    </label>
+    <label className="flex items-center gap-2.5">
+      <Radio value="yearly" />
+      Yearly
+    </label>
+    <label className="flex items-center gap-2.5 text-muted">
+      <Radio value="lifetime" disabled />
+      Lifetime
+    </label>
+  </RadioGroup>
+</Preview>
+
+```tsx
+import { Radio, RadioGroup } from "@zupy/ui";
+
+<RadioGroup defaultValue="monthly" aria-label="Billing">
+  <label className="flex items-center gap-2.5">
+    <Radio value="monthly" /> Monthly
+  </label>
+  <label className="flex items-center gap-2.5">
+    <Radio value="yearly" /> Yearly
+  </label>
+</RadioGroup>
+```
+
+## Props [#props]
+
+### RadioGroup [#radiogroup]
+
+| Prop            | Type                       | Default |
+| --------------- | -------------------------- | ------- |
+| `value`         | `string`                   |         |
+| `defaultValue`  | `string`                   |         |
+| `onValueChange` | `(value: string) => void`  |         |
+| `disabled`      | `boolean`                  | `false` |
+| `name`          | `string`                   |         |
+
+### Radio [#radio]
+
+| Prop       | Type      | Default  |
+| ---------- | --------- | -------- |
+| `value`    | `string`  | required |
+| `disabled` | `boolean` | `false`  |
+
+Built on [Base UI Radio Group](https://base-ui.com/react/components/radio).
+
+
+# Segmented (https://zupy-ui.github.io/docs/components/segmented.md)
+
+<Preview>
+  <Segmented defaultValue="week" aria-label="Range">
+    <SegmentedItem value="day">Day</SegmentedItem>
+    <SegmentedItem value="week">Week</SegmentedItem>
+    <SegmentedItem value="month">Month</SegmentedItem>
+  </Segmented>
+</Preview>
+
+```tsx
+import { Segmented, SegmentedItem } from "@zupy/ui";
+
+<Segmented defaultValue="week" aria-label="Range">
+  <SegmentedItem value="day">Day</SegmentedItem>
+  <SegmentedItem value="week">Week</SegmentedItem>
+  <SegmentedItem value="month">Month</SegmentedItem>
+</Segmented>
+```
+
+The selected item is raised in the primary color. Clicking the selected item again does nothing, so there is always a selection.
+
+## Props [#props]
+
+### Segmented [#segmented]
+
+| Prop            | Type                      | Default        |
+| --------------- | ------------------------- | -------------- |
+| `value`         | `string`                  |                |
+| `defaultValue`  | `string`                  |                |
+| `onValueChange` | `(value: string) => void` |                |
+| `orientation`   | `"horizontal" \| "vertical"` | `"horizontal"` |
+| `disabled`      | `boolean`                 | `false`        |
+
+### SegmentedItem [#segmenteditem]
+
+| Prop       | Type      | Default  |
+| ---------- | --------- | -------- |
+| `value`    | `string`  | required |
+| `disabled` | `boolean` | `false`  |
+
+Built on [Base UI Toggle Group](https://base-ui.com/react/components/toggle-group).
+
+
+# Switch (https://zupy-ui.github.io/docs/components/switch.md)
+
+<Preview>
+  <div className="flex flex-col gap-3">
+    <label className="flex items-center gap-3">
+      <Switch defaultChecked />
+      Notifications
+    </label>
+    <label className="flex items-center gap-3">
+      <Switch />
+      Reduce motion
+    </label>
+    <label className="flex items-center gap-3 text-muted">
+      <Switch disabled />
+      Disabled
+    </label>
+  </div>
+</Preview>
+
+```tsx
+import { Switch } from "@zupy/ui";
+
+<label className="flex items-center gap-3">
+  <Switch defaultChecked />
+  Notifications
+</label>
+```
+
+Use a switch for settings that take effect right away. Use a [Checkbox](/docs/components/checkbox) for choices that are submitted with a form.
+
+## Props [#props]
+
+| Prop              | Type                         | Default |
+| ----------------- | ---------------------------- | ------- |
+| `checked`         | `boolean`                    |         |
+| `defaultChecked`  | `boolean`                    | `false` |
+| `onCheckedChange` | `(checked: boolean) => void` |         |
+| `disabled`        | `boolean`                    | `false` |
+| `name`            | `string`                     |         |
+
+Built on [Base UI Switch](https://base-ui.com/react/components/switch).
+
+
+# Typography (https://zupy-ui.github.io/docs/components/typography.md)
+
+<Preview>
+  <div className="flex flex-col gap-2">
+    <Heading level={1} size="display">Hello</Heading>
+    <Heading level={2}>A level 2 heading</Heading>
+    <Heading level={3}>A level 3 heading</Heading>
+    <Text tone="muted">Body text sits in Inter, headings in Fredoka.</Text>
+  </div>
+</Preview>
+
+```tsx
+import { Heading, Text } from "@zupy/ui";
+
+<Heading level={1}>Welcome back</Heading>
+<Text tone="muted">Here is what changed while you were away.</Text>
+```
+
+## Heading [#heading]
+
+`level` picks the tag (`h1`–`h4`) and a matching size. Pass `size` to change the look without changing the tag.
+
+```tsx
+<Heading level={2} size="display">Big title, still an h2</Heading>
+```
+
+| Prop        | Type                                              | Default          |
+| ----------- | ------------------------------------------------- | ---------------- |
+| `level`     | `1 \| 2 \| 3 \| 4`                                | `2`              |
+| `size`      | `"display" \| "xl" \| "lg" \| "md" \| "sm"`       | from `level`     |
+| `render`    | `ReactElement`                                    |                  |
+
+## Text [#text]
+
+Renders a `<p>`. Use `render={<span />}` for inline text.
+
+| Prop     | Type                                              | Default     |
+| -------- | ------------------------------------------------- | ----------- |
+| `size`   | `"xs" \| "sm" \| "md" \| "lg"`                    | `"md"`      |
+| `tone`   | `"default" \| "muted" \| "primary" \| "danger"`   | `"default"` |
+| `weight` | `"regular" \| "medium" \| "bold"`                 | `"regular"` |
+| `render` | `ReactElement`                                    |             |
+
+
+# Icons (https://zupy-ui.github.io/docs/icons.md)
+
+`@zupy/icons` draws icons the way zupy draws buttons: a thick rounded outline, a solid fill and a hard shadow underneath, so they look like tiny raised tiles.
+
+<IconGallery />
+
+## Installation [#installation]
+
+```bash
+bun add @zupy/icons
+```
+
+```tsx
+import { HeartIcon } from "@zupy/icons";
+
+<HeartIcon size={24} />
+```
+
+The icons work with or without `@zupy/ui`. Without zupy's styles they use the default `pop` colors.
+
+## Tones [#tones]
+
+`tone` picks the fill from the theme. Without it, icons use the primary color.
+
+<Preview>
+  <HeartIcon size={40} />
+  <HeartIcon size={40} tone="primary" />
+  <HeartIcon size={40} tone="success" />
+  <HeartIcon size={40} tone="warning" />
+  <HeartIcon size={40} tone="danger" />
+  <HeartIcon size={40} tone="neutral" />
+</Preview>
+
+```tsx
+<HeartIcon tone="danger" />
+```
+
+## Size and accessibility [#size-and-accessibility]
+
+`size` sets the width and height. It defaults to `1em`, so icons match the surrounding text.
+
+Icons are hidden from screen readers by default. Pass `title` when the icon carries meaning on its own:
+
+```tsx
+<StarIcon title="Favorite" />
+```
+
+Inside a [Button](/docs/components/button) or [Icon Button](/docs/components/icon-button) the label already describes the action, so leave `title` off.
+
+## Colors [#colors]
+
+Each icon uses three CSS variables, so a parent can restyle every icon inside it:
+
+| Variable              | Default                  | Paints                                 |
+| --------------------- | ------------------------ | -------------------------------------- |
+| `--zupy-icon-fill`    | `--zupy-primary`         | The main shape                         |
+| `--zupy-icon-ink`     | `--zupy-primary-foreground` | Details drawn on the shape          |
+| `--zupy-icon-outline` | `--zupy-foreground`      | The outline and strokes outside it     |
+
+The hard shadow uses `--zupy-edge`, like every raised element.
+
+```tsx
+<nav className="[--zupy-icon-fill:var(--zupy-primary)] [--zupy-icon-ink:white]">
+  <HomeIcon />
+  <SearchIcon />
+</nav>
+```
+
+## Make your own [#make-your-own]
+
+`createIcon` turns a 24×24 shape into an icon with the same look:
+
+- `body`: path data for the main shape. It gets the fill, outline and shadow.
+- `outside`: strokes beyond the shape, like handles or antennas.
+- `details`: marks drawn on the shape, like eyes or lines. Use `dot` for filled dots.
+
+```tsx
+import { createIcon, dot } from "@zupy/icons";
+
+export const CloudIcon = createIcon("CloudIcon", {
+  body: "M7 18a4 4 0 0 1-.5-8 6 6 0 0 1 11.5 1.5A3.5 3.5 0 0 1 17.5 18z",
+  details: (
+    <>
+      <circle cx="10" cy="13" r="1.1" {...dot} />
+      <circle cx="14" cy="13" r="1.1" {...dot} />
+    </>
+  ),
+});
+```
+
+Keep the body inside about 3–21 on each axis, leaving room at the bottom for the shadow.
+
+
+# Introduction (https://zupy-ui.github.io/docs/index.md)
+
+zupy is a small React design system with a playful, physical feel. Every raised element has an outline and a hard drop shadow, and it sinks into that shadow when you press it.
+
+<Preview>
+  <Button>Get started</Button>
+  <Button variant="accent">Try it</Button>
+  <Button variant="secondary">Learn more</Button>
+</Preview>
+
+## Principles [#principles]
+
+- **Tactile.** Things look like objects you can press, and respond when you do.
+- **Token first.** Every color, radius and lift is a CSS variable, so one set of components can look very different.
+- **Accessible.** Built on [Base UI](https://base-ui.com), so focus, keyboard and screen reader behavior come for free.
+- **Readable by AI.** Every page is available as Markdown, and the whole site is indexed at `/llms.txt`.
+
+## Built with [#built-with]
+
+- [React 19](https://react.dev) and [Base UI](https://base-ui.com)
+- [Tailwind CSS v4](https://tailwindcss.com), with tokens as CSS variables
+- [class-variance-authority](https://cva.style) for variants
+
+## Next steps [#next-steps]
+
+<Cards>
+  <Card title="Installation" href="/docs/installation" description="Add zupy to a React app." />
+  <Card title="Theming" href="/docs/theming" description="Pick a theme or make your own." />
+  <Card title="Using with AI" href="/docs/ai" description="Point your coding agent at the docs." />
+  <Card title="Button" href="/docs/components/button" description="Start with the most pressable component." />
+</Cards>
+
+
+# Installation (https://zupy-ui.github.io/docs/installation.md)
+
+## Requirements [#requirements]
+
+- React 19
+- Tailwind CSS v4
+
+## 1. Install the package [#1-install-the-package]
+
+```bash
+bun add @zupy/ui
+```
+
+npm, pnpm and yarn work too.
+
+## 2. Import the styles [#2-import-the-styles]
+
+Import zupy right after Tailwind in your main CSS file. This adds the tokens, the theme and the tactile utilities (`raised`, `filled`, `pressable`).
+
+```css title="app.css"
+@import "tailwindcss";
+@import "@zupy/ui/styles.css";
+```
+
+## 3. Load the fonts [#3-load-the-fonts]
+
+zupy uses **Fredoka** for headings and buttons and **Inter** for body text. Load them however your app loads fonts, for example from Google Fonts:
+
+```html
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400..700&family=Inter:wght@400..900&display=swap"
+/>
+```
+
+To use other fonts, override the tokens:
+
+```css
+:root {
+  --zupy-font-display: "Baloo 2", system-ui, sans-serif;
+  --zupy-font-sans: "Nunito", system-ui, sans-serif;
+}
+```
+
+## 4. Use a component [#4-use-a-component]
+
+```tsx
+import { Button } from "@zupy/ui";
+
+export function App() {
+  return <Button>Hello zupy</Button>;
+}
+```
+
+
+# Theming (https://zupy-ui.github.io/docs/theming.md)
+
+## Built-in themes [#built-in-themes]
+
+Set `data-theme` on any element. Everything inside it follows.
+
+```html
+<html data-theme="arcade">
+```
+
+| Theme    | Look                                          |
+| -------- | --------------------------------------------- |
+| `pop`    | Default. Cream paper, ink outlines.           |
+| `arcade` | Navy outlines, bright blue and yellow.        |
+| `gloss`  | No outlines, glossy gradient fills.           |
+
+Themes can be nested, so a single section can use a different theme from the rest of the page.
+
+## Dark mode [#dark-mode]
+
+Add the `dark` class to the same element or any ancestor:
+
+```html
+<html data-theme="pop" class="dark">
+```
+
+## Tokens [#tokens]
+
+Every theme is a set of CSS variables. Override any of them in your own CSS.
+
+### Colors [#colors]
+
+| Token                     | Used for                                   |
+| ------------------------- | ------------------------------------------ |
+| `--zupy-background`       | Page background                            |
+| `--zupy-foreground`       | Main text                                  |
+| `--zupy-muted`            | Secondary text                             |
+| `--zupy-surface`          | Tinted areas, tracks, hovers               |
+| `--zupy-card`             | Cards, inputs, secondary buttons           |
+| `--zupy-border`           | Soft borders                               |
+| `--zupy-edge`             | Outlines and hard shadows on raised things |
+| `--zupy-primary`          | Main actions, selected states, icons       |
+| `--zupy-accent`           | A second highlight color                   |
+| `--zupy-success` / `warning` / `danger` | Status colors                |
+
+Each fill color has a matching `-foreground` token for text on top of it.
+
+### Shape and depth [#shape-and-depth]
+
+| Token                | Default | What it does                                  |
+| -------------------- | ------- | --------------------------------------------- |
+| `--zupy-edge-width`  | `2px`   | Outline width. `0px` removes outlines.        |
+| `--zupy-lift`        | `4px`   | Height of the hard shadow                     |
+| `--zupy-press`       | `3px`   | How far things sink when pressed              |
+| `--zupy-gloss`       | `0`     | `1` turns fills into glossy gradients         |
+| `--zupy-radius-sm` … `-xl` |   | Corner radii                                  |
+
+### Example: a softer theme [#example-a-softer-theme]
+
+```css
+[data-theme="soft"] {
+  --zupy-edge-width: 0px;
+  --zupy-lift: 3px;
+  --zupy-edge: rgb(0 0 0 / 0.15);
+  --zupy-primary: #7c5cff;
+  --zupy-accent: #ffb3d1;
+}
+```
+
+## Tactile utilities [#tactile-utilities]
+
+zupy adds three Tailwind utilities you can use on your own elements:
+
+| Utility     | Effect                                                     |
+| ----------- | ---------------------------------------------------------- |
+| `raised`    | Outline in the edge color plus a hard drop shadow          |
+| `filled`    | Fills with `--zupy-fill`, glossy when the theme is glossy  |
+| `pressable` | Sinks into its shadow while pressed                        |
+| `depth-sm`  | Smaller lift, for compact controls                         |
+
+```tsx
+<div className="raised filled pressable rounded-lg p-4 [--zupy-fill:var(--zupy-accent)]">
+  Press me
+</div>
+```

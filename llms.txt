@@ -1,0 +1,28 @@
+# zupy
+
+> Tactile React components with chunky edges, hard shadows and springy motion. Built on Base UI and Tailwind CSS v4. Install with `bun add @zupy/ui`.
+
+Every page in one file: https://zupy-ui.github.io/llms-full.txt
+
+- **Getting started**
+- [Introduction](https://zupy-ui.github.io/docs/index.md): Tactile React components with chunky edges, hard shadows and springy motion.
+- [Installation](https://zupy-ui.github.io/docs/installation.md): Add zupy to a React app that uses Tailwind CSS v4.
+- [Theming](https://zupy-ui.github.io/docs/theming.md): Pick a built-in theme, switch to dark mode, or tune the tokens.
+- [Icons](https://zupy-ui.github.io/docs/icons.md): Tactile SVG icons with chunky outlines, solid fills and a hard drop shadow.
+- [Using with AI](https://zupy-ui.github.io/docs/ai.md): Give your coding agent everything it needs to build with zupy.
+
+- **Components**
+- [Avatar](https://zupy-ui.github.io/docs/components/avatar.md): A picture of a person, with their initials when there is no image.
+- [Badge](https://zupy-ui.github.io/docs/components/badge.md): A small pill for status, labels and counts.
+- [Button](https://zupy-ui.github.io/docs/components/button.md): A chunky button that sinks into its shadow when pressed.
+- [Card](https://zupy-ui.github.io/docs/components/card.md): A container surface, raised by default.
+- [Checkbox](https://zupy-ui.github.io/docs/components/checkbox.md): A raised checkbox whose tick pops in.
+- [Field](https://zupy-ui.github.io/docs/components/field.md): A label, a control and its messages, wired together.
+- [Icon Button](https://zupy-ui.github.io/docs/components/icon-button.md): A square button holding a single icon.
+- [Input](https://zupy-ui.github.io/docs/components/input.md): Single and multi-line text inputs.
+- [Kbd](https://zupy-ui.github.io/docs/components/kbd.md): A keyboard key for shortcuts and hints.
+- [Pin Input](https://zupy-ui.github.io/docs/components/pin-input.md): Chunky slots for one-time codes and PINs, with auto-advance and paste.
+- [Radio](https://zupy-ui.github.io/docs/components/radio.md): Pick exactly one option from a short list.
+- [Segmented](https://zupy-ui.github.io/docs/components/segmented.md): Pick one of a few options. One is always selected.
+- [Switch](https://zupy-ui.github.io/docs/components/switch.md): An on/off toggle with a springy thumb.
+- [Typography](https://zupy-ui.github.io/docs/components/typography.md): Rounded, heavy headings and readable body text.

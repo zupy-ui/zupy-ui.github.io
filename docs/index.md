@@ -1,0 +1,31 @@
+# Introduction (https://zupy-ui.github.io/docs/index.md)
+
+zupy is a small React design system with a playful, physical feel. Every raised element has an outline and a hard drop shadow, and it sinks into that shadow when you press it.
+
+<Preview>
+  <Button>Get started</Button>
+  <Button variant="accent">Try it</Button>
+  <Button variant="secondary">Learn more</Button>
+</Preview>
+
+## Principles [#principles]
+
+- **Tactile.** Things look like objects you can press, and respond when you do.
+- **Token first.** Every color, radius and lift is a CSS variable, so one set of components can look very different.
+- **Accessible.** Built on [Base UI](https://base-ui.com), so focus, keyboard and screen reader behavior come for free.
+- **Readable by AI.** Every page is available as Markdown, and the whole site is indexed at `/llms.txt`.
+
+## Built with [#built-with]
+
+- [React 19](https://react.dev) and [Base UI](https://base-ui.com)
+- [Tailwind CSS v4](https://tailwindcss.com), with tokens as CSS variables
+- [class-variance-authority](https://cva.style) for variants
+
+## Next steps [#next-steps]
+
+<Cards>
+  <Card title="Installation" href="/docs/installation" description="Add zupy to a React app." />
+  <Card title="Theming" href="/docs/theming" description="Pick a theme or make your own." />
+  <Card title="Using with AI" href="/docs/ai" description="Point your coding agent at the docs." />
+  <Card title="Button" href="/docs/components/button" description="Start with the most pressable component." />
+</Cards>

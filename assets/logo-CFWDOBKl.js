@@ -1,0 +1,1 @@
+import{F as e,O as t}from"./switch-1leZ0h-L.js";import{t as n}from"./jsx-runtime-LKYXHABd.js";var r=n();function i({size:n=32,className:i}){return(0,r.jsx)(`img`,{src:e(`/logo.webp`),alt:``,width:n,height:n,className:t(`shrink-0`,i)})}export{i as t};
